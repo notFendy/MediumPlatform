@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+
+    #remember-me {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="error" th:if="${param.error}">
+  <p th:text="${param.error}"></p>
+</div>
+
+<form action="/auth/login" method="post">
+  <label>
+    Email: <input type="email" name="email">
+  </label>
+  <br>
+  <br>
+  <label>
+    Password: <input type="password" name="password">
+  </label>
+  <br>
+  <br>
+  <label id="remember-me">
+    Remember me <input type="checkbox" name="remember-me">
+  </label>
+  <br>
+  <br>
+  <button type="submit">Login</button>
+  <br>
+  <br>
+</form>
+
+<a href="/auth/signup">signup</a>
+</body>
+</html>
