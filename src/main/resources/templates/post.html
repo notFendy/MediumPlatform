@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+
+<style>
+
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="file"] {
+        width: calc(100% - 22px); /* Adjusted width to accommodate for border */
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[name="content"] {
+        width: calc(100% - 22px);
+        height: 100px;
+    }
+
+    input[type="file"] {
+        width: auto;
+    }
+
+
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+</head>
+<body>
+
+<form action="/posts/createarticle" method="get">
+    <label>
+        <input type="text" th:value="${#authentication.name}" name="auth_name">
+    </label>
+    <br>
+    <br>
+    <label>
+        Title : <input type="text" name="title">
+    </label>
+    <br>
+    <br>
+    <label>
+        Content : <input type="text" name="content"> 
+    </label>
+    <br>
+    <br>
+    <label>
+        Add image: <input type="file" name="image" accept="image/png, image/jpeg" />
+    </label>
+    <br>
+    <br>
+    <button type="submit">Create</button>
+    
+</form>
+
+      
+</body>
+</html>

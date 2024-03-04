@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Post</title>
+</head>
+<body>
+<
+
+
+<form action="/posts/${post.id}" method="POST">
+  <ul th:object="${post}"
+  h1 th:text="${post.title}"></h1>
+  <p th:text="${post.content}"></p>
+
+</form>
+</body>
+</html>

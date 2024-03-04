@@ -1,7 +1,7 @@
 package uz.pdp.dto;
 
 public record UserLoginDto (
-        String email,
+        String username,
         String password ) {
 
 }

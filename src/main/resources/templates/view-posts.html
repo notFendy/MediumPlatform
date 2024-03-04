@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+
+</head>
+
+<body>
+<a href="/posts/createarticle"><button>post article</button></a>
+
+<h1>Posts</h1>
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Id </th>-->
+<!--        <th>Title</th>-->
+<!--        <th>Content</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="post : ${posts}">-->
+<!--        <td th:text="${post.id}"></td>-->
+<!--        <td th:text="${post.title}"></td>-->
+<!--        <td th:text="${post.content}"></td>-->
+<!--        <td > Add comment : <label>-->
+<!--            <input type="text" name="commentaries">-->
+<!--            <button type="submit">submit</button>-->
+<!--        </label>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    -->
+<!--    </tbody>-->
+<!--</table>-->
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${posts}">
+        <td>
+            <a th:href="'/posts/' + ${post.id}"><span th:text="${post.title}"></span></a><br>
+            <span th:text="${post.content}"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

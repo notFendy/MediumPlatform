@@ -2,13 +2,15 @@ package uz.pdp.config.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import uz.pdp.dao.UserDao;
-import uz.pdp.domain.User;
+import uz.pdp.model.User;
 
 @Slf4j
 @Component
@@ -27,5 +29,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User not found with username - " + username);
         }
     }
-
 }

@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Slf4j
 @Configuration
@@ -35,23 +37,38 @@ public class SecurityConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(register ->
-                register.requestMatchers("/",
-                                "/auth/**",
-                                "/media/**")
-                        .permitAll()
-                        .anyRequest().authenticated())
+                register.requestMatchers("/", "/auth/**", "/posts/**").permitAll()
+                        .requestMatchers("/admins").hasRole("ADMIN")
+                        .anyRequest().fullyAuthenticated())
                 .authenticationProvider(authenticationProvider())
                 .formLogin(login -> login
                         .loginPage("/auth/login")
-                        .usernameParameter("email")
+                        .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/auth",true)
+                        .defaultSuccessUrl("/posts", false)
                         .failureHandler(authenticationFailureHandler))
+                .rememberMe(config -> config
+                        .rememberMeParameter("remember-me")
+                        .rememberMeCookieName("remember-me")
+                        .tokenValiditySeconds(3600 * 24)
+                        .key("secret_key:CMAOcnaomxoaMXOAMdad12d2XxaAxaXAxxasaMOAMDaSMXOAxoMxoamx120mx")
+                        .alwaysRemember(false))
+                .logout(config -> config
+                        .logoutUrl("/auth/logout")
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .clearAuthentication(true)
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout","POST")))
                 ;
         return http.build();
 
     }
-
+//    @Bean
+//    public AuthenticationProvider authenticationProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsService);
+//        provider.setPasswordEncoder(passwordEncoder());
+//        return provider;
+//    }
     @Bean
     public AuthenticationProvider authenticationProvider() {
         final var provider = new DaoAuthenticationProvider();

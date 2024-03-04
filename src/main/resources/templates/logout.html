@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout</title>
+  <style>
+    .btn {
+      margin: 40px 20px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <p>Are you sure?</p>
+  <form action="/auth/logout" method="post">
+    <input type="hidden" name="_csrf">
+    <div>
+      <input type="submit" value="YES" class="btn">
+      <a href="/posts" class="btn">
+        <button>Back to Home</button>
+      </a>
+    </div>
+
+  </form>
+</div>
+
+</body>
+</html>

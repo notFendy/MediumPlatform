@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import uz.pdp.dao.UserDao;
-import uz.pdp.domain.User;
+import uz.pdp.model.User;
 import uz.pdp.dto.UserLoginDto;
 import uz.pdp.dto.UserSignUpDto;
+import uz.pdp.service.UserService;
 
 
 @Controller
@@ -21,6 +22,7 @@ import uz.pdp.dto.UserSignUpDto;
 @RequiredArgsConstructor
 public class AuthController {
 
+    private final UserService userService;
     private final UserDao userDao;
     @GetMapping("/login")
     public String auth(){
@@ -32,6 +34,10 @@ public class AuthController {
         return "signup";
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        return "logout";
+    }
 
     @PostMapping("/signup")
     public ModelAndView SignUp(
@@ -46,20 +52,13 @@ public class AuthController {
         }
 
         if (bindingResult.hasErrors()){
-            modelAndView.setViewName("auth");
+            modelAndView.setViewName("signup");
             return modelAndView;
         }
+        userService.saveUser(signupDto);
 
-        final var user = User.builder()
-                .username(signupDto.username())
-                .email(signupDto.email())
-                .password(signupDto.password())
-                .gender(signupDto.gender())
-                .build();
 
-        userDao.save(user);
-
-        modelAndView.addObject("user", user);
+        modelAndView.addObject("user", userDao.getUserByUsername(signupDto.username()));
         modelAndView.setViewName("index");
         return modelAndView;
     }
@@ -69,10 +68,10 @@ public class AuthController {
                               ModelAndView modelAndView
     )  {
 
-        User user = getUserByEmailAndPassword(userLoginDto.email(), userLoginDto.password());
+        User user = getUserByUsernameAndPassword(userLoginDto.username(), userLoginDto.password());
 
         if (user != null) {
-            modelAndView.setViewName("media");
+            modelAndView.setViewName("view-posts");
         } else {
             modelAndView.setViewName("login-error");
         }
@@ -81,9 +80,18 @@ public class AuthController {
     }
 
 
-    private User getUserByEmailAndPassword(String email, String password) {
+    private boolean isUsernameExists(String username){
         try {
-            User user = userDao.getByEmail(email);
+            User existingUser = userDao.getUserByUsername(username);
+            return existingUser != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private User getUserByUsernameAndPassword(String username, String password) {
+        try {
+            User user = userDao.getUserByUsername(username);
             if (user != null && user.getPassword().equals(password)) {
                 return user;
             } else {

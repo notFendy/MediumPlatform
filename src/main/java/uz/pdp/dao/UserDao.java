@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
-import uz.pdp.domain.User;
+import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -28,6 +28,7 @@ public class UserDao {
                 .persist(user);
         return user;
     }
+
     public User getByEmail(final String email) {
        return session.getCurrentSession()
                 .createNativeQuery("select * from users where email = ?1", User.class)
