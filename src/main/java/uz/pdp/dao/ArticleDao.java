@@ -15,8 +15,9 @@ import java.util.List;
 public class ArticleDao {
     private final SessionFactory session;
     private final UserDao userDao;
-    public Article save(Article article, String username){
-        article.setUser(userDao.getUserByUsername(username));
+
+    public Article save(Article article){
+
         session.getCurrentSession()
                 .persist(article);
         return article;
@@ -46,6 +47,7 @@ public class ArticleDao {
 
         return session.getCurrentSession()
                 .createQuery("from Article", Article.class).list();
+
     }
 
     public Article findByUser(User currentUser) {

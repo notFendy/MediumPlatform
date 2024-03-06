@@ -15,6 +15,7 @@ public class UserDao {
 
     private final SessionFactory session;
 
+
     public User getUserByUsername(final String username) {
         return session.getCurrentSession()
 //                .createQuery("select u from User u where u.name = ?1", User.class)

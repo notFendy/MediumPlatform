@@ -44,8 +44,7 @@
     <tbody>
     <tr th:each="post : ${posts}">
         <td>
-            <a th:href="'/posts/' + ${post.id}"><span th:text="${post.title}"></span></a><br>
-            <span th:text="${post.content}"></span>
+            <a th:href="@{/posts/{id}(id=${post.id})}"><span th:text="${post.title}"></span></a><br>
         </td>
     </tr>
     </tbody>

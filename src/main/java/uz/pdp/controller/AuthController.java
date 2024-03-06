@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.extras.springsecurity6.util.SpringSecurityContextUtils;
 import uz.pdp.dao.UserDao;
 import uz.pdp.model.User;
 import uz.pdp.dto.UserLoginDto;
@@ -79,6 +80,7 @@ public class AuthController {
         return modelAndView;
     }
 
+    
 
     private boolean isUsernameExists(String username){
         try {

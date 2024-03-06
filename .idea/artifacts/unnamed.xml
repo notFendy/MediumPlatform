@@ -49,9 +49,12 @@
           <element id="library" level="project" name="Maven: io.micrometer:micrometer-commons:1.12.3" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:6.1.4" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:6.1.4" />
+          <element id="library" level="project" name="Maven: jakarta.validation:jakarta.validation-api:3.1.0-M1" />
+          <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:8.0.1.Final" />
         </element>
         <element id="directory" name="classes">
           <element id="module-output" name="MediumPlatform" />
+          <element id="jpa-descriptors" facet="MediumPlatform/jpa/JPA" />
         </element>
       </element>
     </root>

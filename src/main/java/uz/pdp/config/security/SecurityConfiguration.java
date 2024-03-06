@@ -37,22 +37,26 @@ public class SecurityConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(register ->
-                register.requestMatchers("/", "/auth/**", "/posts/**").permitAll()
+                register.requestMatchers("/", "/auth/**", "/posts/**","static/**").permitAll()
                         .requestMatchers("/admins").hasRole("ADMIN")
                         .anyRequest().fullyAuthenticated())
+
                 .authenticationProvider(authenticationProvider())
+
                 .formLogin(login -> login
                         .loginPage("/auth/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/posts", false)
                         .failureHandler(authenticationFailureHandler))
+
                 .rememberMe(config -> config
                         .rememberMeParameter("remember-me")
                         .rememberMeCookieName("remember-me")
                         .tokenValiditySeconds(3600 * 24)
                         .key("secret_key:CMAOcnaomxoaMXOAMdad12d2XxaAxaXAxxasaMOAMDaSMXOAxoMxoamx120mx")
                         .alwaysRemember(false))
+
                 .logout(config -> config
                         .logoutUrl("/auth/logout")
                         .deleteCookies("JSESSIONID", "remember-me")
